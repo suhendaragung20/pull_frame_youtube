@@ -28,6 +28,9 @@ capture = cv2.VideoCapture(best.url)
 mf = masked_face_detection.masked_face_detection()
 
 
+sum_speed = 0
+count_speed = 0
+
 def skipFrames(timegap, FPS, cap, CALIBRATION):
    latest = None
    while True :  
@@ -115,8 +118,15 @@ def gen_frames():  # generate frame by frame from camera
 
         # ===========================
 
+        tic = time.time()
+         
         crop_img_1, output_info = mf.detect(crop_img_1, show_result=True, target_shape=(260, 260))
         crop_img_1 = mf.draw(crop_img_1, output_info)
+         
+        sum_speed += time.time() - tic
+        count_speed += 1
+        
+        print("mean execution time : ", sum_speed/count_speed) 
 
         crop_img_2, output_info = mf.detect(crop_img_2, show_result=True, target_shape=(260, 260))
         crop_img_2 = mf.draw(crop_img_2, output_info)
