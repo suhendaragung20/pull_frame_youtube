@@ -12,16 +12,16 @@ def load_tf_model(tf_model_path):
     '''
 
     detection_graph = tf.Graph()
-    with detection_graph.device('/device:GPU:0'):
-        with detection_graph.as_default():
-            od_graph_def = tf.GraphDef()
-            with tf.gfile.GFile(PATH_TO_TENSORFLOW_MODEL, 'rb') as fid:
-                serialized_graph = fid.read()
-                od_graph_def.ParseFromString(serialized_graph)
-                tf.import_graph_def(od_graph_def, name='')
-                with detection_graph.as_default():
-                    sess = tf.Session(graph=detection_graph)
-                    return sess, detection_graph
+    #with detection_graph.device('/device:GPU:0'):
+    with detection_graph.as_default():
+        od_graph_def = tf.GraphDef()
+        with tf.gfile.GFile(PATH_TO_TENSORFLOW_MODEL, 'rb') as fid:
+            serialized_graph = fid.read()
+            od_graph_def.ParseFromString(serialized_graph)
+            tf.import_graph_def(od_graph_def, name='')
+            with detection_graph.as_default():
+                sess = tf.Session(graph=detection_graph)
+                return sess, detection_graph
 
 
 def tf_inference(sess, detection_graph, img_arr):

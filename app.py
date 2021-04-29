@@ -125,6 +125,7 @@ def gen_frames():  # generate frame by frame from camera
         sum_speed += time.time() - tic
         count_speed += 1
         
+        print("det time : ", time.time() - tic)
         print("mean execution time : ", sum_speed/count_speed) 
 
         crop_img_2, output_info = mf.detect(crop_img_2, show_result=True, target_shape=(260, 260))
@@ -233,4 +234,4 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    app.run(host='0.0.0.0', port=5003, debug=True)
